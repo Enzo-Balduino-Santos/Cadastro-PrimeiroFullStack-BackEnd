@@ -1,23 +1,19 @@
 const button = document.querySelector("button")
 button.onclick = (event) => {
     event.preventDefault()
-    signUpUser()
+    login()
 }
 
-async function signUpUser() {
-    const name = document.querySelector("#name").value
+async function login() {
     const email = document.querySelector("#email").value
     const password = document.querySelector("#password").value
-    const nickname = document.querySelector("#nickname").value
 
     const user = {
-        name,
         email,
-        password,
-        nickname
+        password  
     }
 
-    const response = await fetch("http://localhost:3333/cadastrar", {
+    const response = await fetch("http://localhost:3333/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -25,7 +21,13 @@ async function signUpUser() {
         body: JSON.stringify({ user })
     }).then(response => response.json())
 
-    alert(response.message)
+    
+    const { message, token } = response
 
-    window.location.href = "../index.html"
+    sessionStorage.setItem("token",token)
+
+    alert(message)
+
+
+    window.location.href = "../../index.html"
 }
