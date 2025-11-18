@@ -8,11 +8,14 @@ async function login() {
     const email = document.querySelector("#email").value
     const password = document.querySelector("#password").value
 
+    //objeto do usuario
     const user = {
         email,
         password  
     }
 
+    //enviar o usuario para o backend
+    //user.id, pontuacao
     const response = await fetch("http://localhost:3333/login", {
         method: "POST",
         headers: {
@@ -21,13 +24,18 @@ async function login() {
         body: JSON.stringify({ user })
     }).then(response => response.json())
 
-    
-    const { message, token } = response
+    if(response.message){
+        alert(response.mesasage)
+        window.location.reload()
+        return
+    }
 
-    sessionStorage.setItem("token",token)
+    //desestruturar 
+    const { id, name } = response
 
-    alert(message)
+    sessionStorage.setItem("user", JSON.stringify({ id, name }))
 
+    alert("login efetuado com sucesso!")
 
     window.location.href = "../../index.html"
 }

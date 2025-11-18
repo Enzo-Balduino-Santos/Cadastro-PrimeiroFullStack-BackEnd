@@ -1,6 +1,7 @@
 async function buscarInformacaoNoBackend() {
     const main = document.querySelector("main")
     
+    //mostrar na tela os usuarios que vieram do banco de dados
     const persons = await fetch("http://localhost:3333").then((response) => response.json())
     persons.map((person) => {
         main.innerHTML += `
