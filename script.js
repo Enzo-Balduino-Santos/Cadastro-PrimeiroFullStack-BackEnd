@@ -14,9 +14,16 @@ function init() {
 
     navUl.innerHTML += `
         <li>
-            <a href="./pages/logi./login.html">Login</a>
+            <a href="./pages/login/login.html">Login</a>
         </li>
     `
+}
+
+
+function logout() {
+    sessionStorage.removeItem("user")
+    window.location.reload()
+
 }
 
 init()
